@@ -2,6 +2,7 @@ package com.dilib.hotelapi.service;
 
 import com.dilib.hotelapi.domain.User;
 import com.dilib.hotelapi.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,9 +12,12 @@ import java.util.Collection;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Collection<User> getUsers() {
@@ -25,7 +29,7 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-        userRepository.save(new User(user.getUsername(), user.getPassword()));
+        userRepository.save(new User(user.getUsername(), passwordEncoder.encode(user.getPassword())));
     }
 
     public void deleteUserWithUsername(String username) {
