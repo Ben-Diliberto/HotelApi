@@ -21,13 +21,12 @@ public class UserController {
     }
 
     @PostMapping("/{username}")
-    public ResponseEntity<String> addUserWithUsername(@PathVariable(value = "username") String username) {
+    public void addUserWithUsername(@PathVariable(value = "username") String username) {
         userService.saveUser(username);
-        return ResponseEntity.ok("Added " + username);
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<String> deleteUserWithUsername(@PathVariable(value = "username") String username) {
-        return ResponseEntity.ok("Deleted " + username);
+    public void deleteUserWithUsername(@PathVariable(value = "username") String username) {
+        userService.deleteUserWithUsername(username);
     }
 }

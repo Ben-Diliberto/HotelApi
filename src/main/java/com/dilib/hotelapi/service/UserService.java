@@ -21,4 +21,8 @@ public class UserService {
         userRepository.save(new User(username, "passw0rd"));
     }
 
+    public void deleteUserWithUsername(String username) {
+        userRepository.deleteById(username);
+    }
+
 }
