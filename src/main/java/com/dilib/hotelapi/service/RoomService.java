@@ -38,4 +38,8 @@ public class RoomService {
     public void deleteRoom(Integer id) {
         roomRepository.deleteById(id);
     }
+
+    public boolean exists(Integer id) {
+        return roomRepository.existsById(id);
+    }
 }

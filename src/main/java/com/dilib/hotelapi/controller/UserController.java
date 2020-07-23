@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -21,7 +20,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Collection<UserDto>> getAllUsers() {
-        return ResponseEntity.ok(userService.getUsers().stream().map(UserTransformer::transform).collect(Collectors.toList()));
+        return ResponseEntity.ok(UserTransformer.transform(userService.getUsers()));
     }
 
     @PostMapping

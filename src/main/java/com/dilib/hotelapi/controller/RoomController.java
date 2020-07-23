@@ -22,7 +22,7 @@ public class RoomController {
 
     @GetMapping
     public ResponseEntity<Collection<RoomDto>> getAllRooms() {
-        return ResponseEntity.ok(roomService.getAllRooms().stream().map(RoomTransformer::transform).collect(Collectors.toList()));
+        return ResponseEntity.ok(RoomTransformer.transform(roomService.getAllRooms()));
     }
 
     @PostMapping
