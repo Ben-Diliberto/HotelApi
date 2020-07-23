@@ -1,5 +1,7 @@
 package com.dilib.hotelapi.controller;
 
+import com.dilib.hotelapi.domain.User;
+import com.dilib.hotelapi.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,13 +9,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserController {
 
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/{username}")
-    public ResponseEntity<String> getUserByUsername(@PathVariable(value = "username") String username) {
-        return ResponseEntity.ok("Finding " + username);
+    public ResponseEntity<User> getUserByUsername(@PathVariable(value = "username") String username) {
+        return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
     @PostMapping("/{username}")
     public ResponseEntity<String> addUserWithUsername(@PathVariable(value = "username") String username) {
+        userService.saveUser(username);
         return ResponseEntity.ok("Added " + username);
     }
 
